@@ -19,7 +19,7 @@ if ($(".slider-certificate").length > 0) {
         autoplay: {
             delay: 4000
         },
-        speed: 1,
+        speed: 50,
         loop: true,
     });
 }
@@ -31,7 +31,7 @@ if ($(".slider-certificate-vrtical").length > 0) {
         autoplay: {
             delay: 4000
         },
-        speed: 1,
+        speed: 50,
         loop: true,
     });
 }
