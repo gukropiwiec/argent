@@ -1,0 +1,99 @@
+$( document ).ready(function() {
+
+    // Mobile Menu
+    $(".toggle").click(function() {
+      $(this).toggleClass("on");
+      $(".navbar-list").toggleClass("active");
+    });
+  
+    // Hide Header on on scroll down\
+    $(window).scroll(function() {
+        if ($(this).scrollTop() == 0) {
+            $('.header').addClass('changes');
+        } else {
+            $('.header').removeClass('changes');
+        }
+    });
+  
+    
+    var didScroll;
+    var lastScrollTop = 0;
+    var delta = 5;
+    var navbarHeight = -5;
+  
+    $(window).scroll(function(event){
+        didScroll = true;
+    });
+  
+    setInterval(function() {
+        if (didScroll) {
+            hasScrolled();
+            didScroll = false;
+        }
+    }, 250);
+  
+    function hasScrolled() {
+        var st = $(this).scrollTop();
+        
+        // Make sure they scroll more than delta
+        if(Math.abs(lastScrollTop - st) <= delta) 
+            return;
+        
+        // If they scrolled down and are past the navbar, add class .nav-up.
+        // This is necessary so you never see what is "behind" the navbar.
+        if (st > lastScrollTop && st > navbarHeight){
+            // Scroll Down
+            $('.header').removeClass('sticky').addClass('nav-up');
+        } else {
+            // Scroll Up
+            if(st + $(window).height() < $(document).height()) {
+                $('.header').removeClass('nav-up').addClass('sticky');
+            }
+        }
+        
+        lastScrollTop = st;
+    }
+    });
+    
+    // inViewport jQuery plugin
+    // http://stackoverflow.com/a/26831113/383904
+    // Based on Fiddle: https://jsfiddle.net/2v3mq3nh/4/
+    // From this Answer: http://stackoverflow.com/a/36980280
+    $(function($, win) {
+        $.fn.inViewport = function(cb) {
+        return this.each(function(i,el){
+            function visPx(){
+            var H = $(this).height(),
+                r = el.getBoundingClientRect(), t=r.top, b=r.bottom;
+            return cb.call(el, Math.max(0, t>0? H-t : (b<H?b:H)));  
+            } visPx();
+            $(win).on("resize scroll", visPx);
+        });
+        };
+    }(jQuery, window));
+        
+    jQuery(function($) { // DOM ready and $ in scope
+    
+        $(".stat").inViewport(function(px) { // Make use of the `px` argument!!!
+        // if element entered V.port ( px>0 ) and
+        // if prop initNumAnim flag is not yet set
+        //  = Animate numbers
+        if(px>0 && !this.initNumAnim) { 
+				this.initNumAnim = true; // Set flag to true to prevent re-running the same animation
+				$(this).prop('Counter',0).animate({
+				Counter: $(this).text()
+				}, {
+				duration: 1000,
+				step: function (now) {
+					$(this).text(Math.ceil(now).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + "+") ;
+				}
+				}); 
+			}
+    });
+    
+		
+  setTimeout(function() {
+		$('.cky-consent-container').addClass('view');
+	}, 120000);
+    
+});
