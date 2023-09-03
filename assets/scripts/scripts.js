@@ -19,8 +19,12 @@ if ($(".slider-certificate").length > 0) {
         autoplay: {
             delay: 4000
         },
-        speed: 50,
+        speed: 400,
         loop: true,
+        effect: 'fade',
+        fadeEffect: {
+            crossFade: true
+        },
     });
 }
 
@@ -31,8 +35,12 @@ if ($(".slider-certificate-vrtical").length > 0) {
         autoplay: {
             delay: 4000
         },
-        speed: 50,
+        speed: 400,
         loop: true,
+        effect: 'fade',
+        fadeEffect: {
+            crossFade: true
+        },
     });
 }
 // =================================================
